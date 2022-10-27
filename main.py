@@ -14,7 +14,7 @@ owner_id = -206170695     # owner id = -group_id
 album_id = 280291786
 
 while True:
-    ph_num = random.randrange(1, 70+1)
+    ph_num = random.randrange(1, 100+1)
     first_word = random.choice(words.words)
     second_word = random.choice(words.words)
     output = first_word + ' ' + second_word
@@ -43,10 +43,10 @@ while True:
     d.text((x, y), str(text), font=font, fill="#fff")
     im.save(f'photo/{ph_num}_edited.jpg')
 
-    stoken = 'service token for group'
+    stoken = 'user token to app'
     filename = f'photo/{ph_num}_edited.jpg'
 
-    api = vk.API(vk.Session(access_token=stoken), v='5.130')
+    api = vk.API(stoken, v='5.130')
     upload_url = api.photos.getWallUploadServer(group_id=group_id)['upload_url']
     resp = requests.post(upload_url, files={
         'file': open(filename, 'rb')}).json()
@@ -54,4 +54,4 @@ while True:
     api.wall.post(owner_id=-group_id, message="", attachments=f"photo{s[0]['owner_id']}_{s[0]['id']}")
     os.remove(f'photo/{ph_num}_edited.jpg')
     print(f'Пост с картинкой {ph_num} и текстом {output} опубликован')
-    time.sleep(3600)
+    time.sleep(10800)
