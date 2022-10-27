@@ -51,7 +51,7 @@ while True:
     resp = requests.post(upload_url, files={
         'file': open(filename, 'rb')}).json()
     s = api.photos.saveWallPhoto(group_id=group_id, server=resp['server'], photo=resp['photo'], hash=resp['hash'])
-    api.wall.post(owner_id=-group_id, message="", attachments=f"photo{s[0]['owner_id']}_{s[0]['id']}")
+    api.wall.post(owner_id=-group_id, message=f"🖼️ {output}, {ph_num}.jpg", attachments=f"photo{s[0]['owner_id']}_{s[0]['id']}")
     os.remove(f'photo/{ph_num}_edited.jpg')
     print(f'Пост с картинкой {ph_num} и текстом {output} опубликован')
     time.sleep(10800)
